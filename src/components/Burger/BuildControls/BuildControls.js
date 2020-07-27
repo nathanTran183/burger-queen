@@ -6,7 +6,9 @@ import classes from "./BuildControls.module.css";
 const buildControls = (props) => {
   return (
     <div className={classes.BuildControls}>
-      <label>Total price: {props.totalPrice}</label>
+      <label>
+        Total price: <strong>{props.totalPrice.toFixed(2)}</strong>
+      </label>
       {Object.keys(props.ingredients).map((ingredient) => {
         return (
           <BuildControl
@@ -18,6 +20,12 @@ const buildControls = (props) => {
           />
         );
       })}
+      <button
+        disabled={!props.purchasable}
+        className={classes.OrderButton}
+      >
+        ORDER NOW
+      </button>
     </div>
   );
 };
