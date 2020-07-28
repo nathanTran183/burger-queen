@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 
 import classes from "./Modal.module.css";
-import Aux from "../../../hoc/Auxiliary";
+import Aux from "../../../hoc/Auxiliary/Auxiliary";
 import Backdrop from "../Backdrop/Backdrop";
 
 const modal = (props) => (
@@ -19,4 +19,8 @@ const modal = (props) => (
   </Aux>
 );
 
-export default modal;
+const areEqual = (prevProps, nextProps) => {
+  return nextProps.showed === prevProps.showed
+}
+
+export default memo(modal, areEqual);
