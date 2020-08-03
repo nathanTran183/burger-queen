@@ -1,0 +1,9 @@
+.Spinner {
+    background-color: transparent;
+    width: 100%;
+    height: auto;
+}
+
+.Spinner img {
+    width: 100%;
+}

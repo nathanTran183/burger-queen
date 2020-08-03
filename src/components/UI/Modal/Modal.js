@@ -20,7 +20,7 @@ const modal = (props) => (
 );
 
 const areEqual = (prevProps, nextProps) => {
-  return nextProps.showed === prevProps.showed
+  return (nextProps.showed === prevProps.showed && nextProps.children === prevProps.children);
 }
 
 export default memo(modal, areEqual);
