@@ -1,12 +1,11 @@
-import React, { memo } from "react";
+import React, { memo, Fragment } from "react";
 
 import classes from "./Modal.module.css";
-import Aux from "../../../hoc/Auxiliary/Auxiliary";
 import Backdrop from "../Backdrop/Backdrop";
 
 const modal = (props) => (
-  <Aux>
-    <Backdrop showed={props.showed} clicked={props.modelClosed}/>
+  <Fragment>
+    <Backdrop showed={props.showed} clicked={props.modelClosed} />
     <div
       className={classes.Modal}
       style={{
@@ -16,11 +15,14 @@ const modal = (props) => (
     >
       {props.children}
     </div>
-  </Aux>
+  </Fragment>
 );
 
 const areEqual = (prevProps, nextProps) => {
-  return (nextProps.showed === prevProps.showed && nextProps.children === prevProps.children);
-}
+  return (
+    nextProps.showed === prevProps.showed &&
+    nextProps.children === prevProps.children
+  );
+};
 
 export default memo(modal, areEqual);

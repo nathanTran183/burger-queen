@@ -1,14 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import classes from "./SideDrawer.module.css";
 import Logo from "../../Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import Backdrop from "../../UI/Backdrop/Backdrop";
-import Aux from "../../../hoc/Auxiliary/Auxiliary";
 
 const sideDrawer = (props) => {
   return (
-    <Aux>
+    <Fragment>
       <Backdrop clicked={props.clicked} showed={props.showed} />
       <div
         className={[
@@ -23,7 +22,7 @@ const sideDrawer = (props) => {
           <NavigationItems />
         </nav>
       </div>
-    </Aux>
+    </Fragment>
   );
 };
 

@@ -1,11 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
-import Aux from "../../../hoc/Auxiliary/Auxiliary";
 import Button from "../../UI/Button/Button";
 
 class OrderSummary extends Component {
   componentDidUpdate() {
-     console.log('[OrderSummary] Did update')
+    console.log("[OrderSummary] Did update");
   }
 
   render() {
@@ -20,7 +19,7 @@ class OrderSummary extends Component {
       }
     );
     return (
-      <Aux>
+      <Fragment>
         <h3>Your Order</h3>
         <p>A delicious burger with the following ingredients:</p>
         <ul>{ingredientSummary}</ul>
@@ -34,7 +33,7 @@ class OrderSummary extends Component {
         <Button cssClass="Success" clicked={this.props.purchaseContinued}>
           CONTINUE
         </Button>
-      </Aux>
+      </Fragment>
     );
   }
 }

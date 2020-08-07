@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
-import Aux from "../Auxiliary/Auxiliary";
 import Modal from "../../components/UI/Modal/Modal";
 
 const withErrorHandler = (WrappedComponent, axios) => {
@@ -26,13 +25,13 @@ const withErrorHandler = (WrappedComponent, axios) => {
     }
 
     componentWillUnmount() {
-      axios.interceptors.request.eject(this.reqInterceptor)
-      axios.interceptors.response.eject(this.resInterceptor)
+      axios.interceptors.request.eject(this.reqInterceptor);
+      axios.interceptors.response.eject(this.resInterceptor);
     }
 
     render() {
       return (
-        <Aux>
+        <Fragment>
           <Modal
             showed={this.state.error}
             modelClosed={() => this.setState({ error: null })}
@@ -40,7 +39,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
             {this.state.error ? this.state.error.message : null}{" "}
           </Modal>
           <WrappedComponent {...this.props} />
-        </Aux>
+        </Fragment>
       );
     }
   };

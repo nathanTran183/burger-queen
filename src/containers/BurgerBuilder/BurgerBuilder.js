@@ -1,6 +1,5 @@
-import React from "react";
+import React, { Fragment } from "react";
 
-import Aux from "../../hoc/Auxiliary/Auxiliary";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
@@ -23,15 +22,15 @@ class BurgerBuilder extends React.Component {
     purchasable: false,
     purchasing: false,
     loading: false,
-    error: false
+    error: false,
   };
 
   async componentDidMount() {
     try {
-      const response = await axios.get("/ingredients");
+      const response = await axios.get("/ingredients.json");
       this.setState({ ingredients: response.data });
     } catch (error) {
-      this.setState({error: true})
+      this.setState({ error: true });
     }
   }
 
@@ -129,10 +128,14 @@ class BurgerBuilder extends React.Component {
 
   render() {
     let content = null;
-    let burger = this.state.error ? <p>Cannot fetch ingredients</p> : <Spinner />;
+    let burger = this.state.error ? (
+      <p>Cannot fetch ingredients</p>
+    ) : (
+      <Spinner />
+    );
     if (this.state.ingredients) {
       burger = (
-        <Aux>
+        <Fragment>
           <Burger ingredients={this.state.ingredients} />
           <BuildControls
             ingredients={this.state.ingredients}
@@ -142,7 +145,7 @@ class BurgerBuilder extends React.Component {
             purchasable={this.state.purchasable}
             ordered={this.purchaseHandler}
           />
-        </Aux>
+        </Fragment>
       );
       content = (
         <OrderSummary
@@ -157,7 +160,7 @@ class BurgerBuilder extends React.Component {
       content = <Spinner />;
     }
     return (
-      <Aux>
+      <Fragment>
         <Modal
           showed={this.state.purchasing}
           modelClosed={this.purchaseCancelHandler}
@@ -165,7 +168,7 @@ class BurgerBuilder extends React.Component {
           {content}
         </Modal>
         {burger}
-      </Aux>
+      </Fragment>
     );
   }
 }
