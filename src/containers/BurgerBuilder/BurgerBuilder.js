@@ -71,8 +71,6 @@ class BurgerBuilder extends React.Component {
   };
 
   purchaseContinueHandler = async () => {
-    // console.log(this.props)
-    this.props.history.push("/checkout");
     // try {
     //   this.setState({ loading: true });
     //   const order = {
@@ -94,6 +92,14 @@ class BurgerBuilder extends React.Component {
     //   this.setState({ loading: false });
     //   this.purchaseCancelHandler();
     // }
+    let queryParam = [];
+    for (const ingredient in this.state.ingredients) {
+      queryParam.push(encodeURIComponent(ingredient) + "=" + encodeURIComponent(this.state.ingredients[ingredient]));
+    }
+    this.props.history.push({
+      pathname: "/checkout",
+      search: queryParam.join("&")
+    });
   };
 
   addIngredientHandler = (type) => {

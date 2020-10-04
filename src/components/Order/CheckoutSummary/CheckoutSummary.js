@@ -1,29 +1,24 @@
-import React from 'react';
-import {withRouter} from 'react-router-dom';
+import React from "react";
 
-import Burger from '../../Burger/Burger';
-import Button from '../../UI/Button/Button';
-import classes from './CheckoutSummary.module.css';
+import Burger from "../../Burger/Burger";
+import Button from "../../UI/Button/Button";
+import classes from "./CheckoutSummary.module.css";
 
-const goBack = (props) => {
-}
+const checkoutSummary = (props) => {
+  return (
+    <div className={classes.CheckoutSummary}>
+      <h1>We hope it tastes well!!</h1>
+      <div style={{ width: "100%", margin: "auto" }}>
+        <Burger ingredients={props.ingredients} />
+      </div>
+      <Button cssClass="Danger" clicked={props.checkoutCancelled}>
+        CANCEL
+      </Button>
+      <Button cssClass="Success" clicked={props.checkoutContinued}>
+        CONTINUE
+      </Button>
+    </div>
+  );
+};
 
-const goForward = (props) => {
-    
-}
-
-const checkoutSummary = props => {
-    console.log(props)
-    return (
-        <div className={classes.CheckoutSummary}>
-            <h1>We hope it tastes well!!</h1>
-            <div style={{width: '100%', margin: 'auto'}}>
-                <Burger ingredients={props.ingredients}/>
-            </div>
-            <Button cssClass="Danger" clicked={goBack}>CANCEL</Button>
-            <Button cssClass="Success" clicked={goForward}>CONTINUE</Button>
-        </div>
-    );
-}
-
-export default withRouter(checkoutSummary);
+export default checkoutSummary;
