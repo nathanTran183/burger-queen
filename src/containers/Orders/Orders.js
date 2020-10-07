@@ -10,30 +10,25 @@ class Orders extends Component {
   };
 
   componentDidMount() {
-    try {
-      this.setState({ loading: true });
-      axios
-        .get("/orders.json")
-        .then((res) => {
-          const orders = [];
-          for (const orderId in res.data) {
-            if (res.data.hasOwnProperty(orderId)) {
-              orders.push({ ...res.data[orderId], id: orderId });
-            }
+    this.setState({ loading: true });
+    axios
+      .get("/orders.json")
+      .then((res) => {
+        const orders = [];
+        for (const orderId in res.data) {
+          if (res.data.hasOwnProperty(orderId)) {
+            orders.push({ ...res.data[orderId], id: orderId });
           }
-          this.setState({
-            orders: orders,
-          });
-          this.setState({ loading: false });
-        })
-        .catch((err) => {
-          console.log(err);
-          this.setState({ loading: false });
+        }
+        this.setState({
+          orders: orders,
         });
-    } catch (error) {
-      console.log(error);
-      this.setState({ loading: false });
-    }
+        this.setState({ loading: false });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({ loading: false });
+      });
   }
 
   render() {
