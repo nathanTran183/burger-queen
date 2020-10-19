@@ -22,6 +22,7 @@ class ContactData extends Component {
           maxLength: 20
         },
         valid: false,
+        touched: false
       },
       street: {
         elementType: "input",
@@ -34,6 +35,7 @@ class ContactData extends Component {
           required: true,
         },
         valid: false,
+        touched: false
       },
       zipCode: {
         elementType: "input",
@@ -46,6 +48,7 @@ class ContactData extends Component {
           required: true,
         },
         valid: false,
+        touched: false
       },
       email: {
         elementType: "input",
@@ -58,6 +61,7 @@ class ContactData extends Component {
           required: true,
         },
         valid: false,
+        touched: false
       },
       deliveryMethod: {
         elementType: "select",
@@ -67,9 +71,13 @@ class ContactData extends Component {
             { value: "cheapest", display: "Cheapest" },
           ],
         },
-        value: "",
+        value: "fastest",
+        validation: {},
+        valid: true,
+        touched: false
       },
     },
+    validForm: false,
     loading: false,
   };
 
@@ -120,12 +128,21 @@ class ContactData extends Component {
     let updatedInputForm = { ...this.state.inputForm };
     let updatedElement = { ...updatedInputForm[element] };
     updatedElement.value = event.target.value;
-        
     updatedElement.valid = this.checkValidity(updatedElement.value, updatedElement.validation);
-    console.log(updatedElement.valid);
+    updatedElement.touched = true;
     updatedInputForm[element] = updatedElement;
+
+    let formValid = true;
+    for (const element in updatedInputForm) {
+      if (updatedInputForm.hasOwnProperty(element)) {
+        const valid = updatedInputForm[element].valid;
+        formValid = valid && formValid;
+      }
+    }
+
     this.setState({
       inputForm: updatedInputForm,
+      validForm: formValid
     });
   };
 
@@ -140,10 +157,13 @@ class ContactData extends Component {
               elementConfig={this.state.inputForm[element].elementConfig}
               value={this.state.inputForm[element].value}
               changed={(event) => this.onChangeHandler(event, element)}
+              invalid={!this.state.inputForm[element].valid}
+              shouldValidate={this.state.inputForm[element].validation}
+              touched={this.state.inputForm[element].touched}
             />
           );
         })}
-        <Button cssClass="Success">ORDER</Button>
+        <Button cssClass="Success" disabled={!this.state.validForm}>ORDER</Button>
       </form>
     );
     if (this.state.loading === true) {
